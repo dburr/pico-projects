@@ -1,3 +1,28 @@
 # Pi Pico projects
 
-Run `git submodule update --init  --recursive` to download the SDK
+## Setting up a build environment
+
+### On Mac
+
+You must install [Homebrew](https://brew.sh/).
+
+Install the following packages through Homebrew:
+
+* Cmake: `brew install cmake`
+* ARM toolchain:
+  * ~~`brew tap ArmMbed/homebrew-formulae`~~
+  * ~~`brew install arm-none-eabi-gcc`~~
+  * `brew install --cask gcc-arm-embedded`
+
+### On Linux (Ubuntu)
+
+`$ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential`
+
+## Setting up the SDK
+
+The SDK is set up as submodules to this project. To get everything set up, simply run
+`git submodule update --init  --recursive`.
+
+## Updating the SDK
+
+`git submodule update`
