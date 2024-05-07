@@ -25,4 +25,4 @@ The SDK is set up as submodules to this project. To get everything set up, simpl
 
 ## Updating the SDK
 
-`git submodule update`
+To update all SDK components to the latest commit, run `git submodule update --remote --merge`.
