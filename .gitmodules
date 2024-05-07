@@ -10,3 +10,6 @@
 [submodule "pico-playground"]
 	path = pico-playground
 	url = https://github.com/raspberrypi/pico-playground.git
+[submodule "sd_fat_spi/lib/no-OS-FatFS-SD-SPI-RPi-Pico"]
+	path = sd_fat_spi/lib/no-OS-FatFS-SD-SPI-RPi-Pico
+	url = https://github.com/carlk3/no-OS-FatFS-SD-SPI-RPi-Pico.git
