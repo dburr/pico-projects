@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 
+#define DELAY_MS 1000
+
 int main() {
   const uint led_pin = 25;
   
@@ -16,8 +18,8 @@ int main() {
     // blink LED
     printf("Blinking!\r\n");
     gpio_put(led_pin, true);
-    sleep_ms(20);
+    sleep_ms(DELAY_MS);
     gpio_put(led_pin, false);
-    sleep_ms(20);
+    sleep_ms(DELAY_MS);
   }
 }
