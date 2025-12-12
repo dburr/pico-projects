@@ -9,17 +9,13 @@ void hid_keyboard_init() {
 void hid_keyboard_send_key(uint8_t keycode) {
     if (!tud_hid_ready()) return;
     uint8_t keycodes[6] = {keycode, 0, 0, 0, 0, 0};
-    tud_hid_keyboard_report(1, 0, keycodes);
-    sleep_ms(20);
-    tud_hid_keyboard_report(1, 0, NULL); // Release
+    tud_hid_keyboard_report(0, 0, keycodes);
 }
 
 void hid_keyboard_send_combo(uint8_t modifier, uint8_t keycode) {
     if (!tud_hid_ready()) return;
     uint8_t keycodes[6] = {keycode, 0, 0, 0, 0, 0};
-    tud_hid_keyboard_report(1, modifier, keycodes);
-    sleep_ms(20);
-    tud_hid_keyboard_report(1, 0, NULL); // Release
+    tud_hid_keyboard_report(0, modifier, keycodes);
 }
 
 // TinyUSB HID callbacks
