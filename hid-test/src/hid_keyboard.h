@@ -1,10 +1,8 @@
 #pragma once
 #include <stdint.h>
 
-#define HID_KEY_A      0x04
-#define HID_KEY_SPACE  0x2C
-#define HID_KEY_X      0x1B
-#define HID_MOD_ALT    0x04
+// HID scan codes: https://gist.github.com/MightyPork/6da26e382a7ad91b5496ee55fdc73db2
+// moved to hid_keys.h
 
 void hid_keyboard_init();
 void hid_keyboard_send_key(uint8_t keycode);

@@ -2,8 +2,12 @@
 #include "tusb.h"
 #include "gpio_buttons.h"
 #include "hid_keyboard.h"
+#include "hid_keys.h"
 
-const uint BUTTON_PINS[] = {2, 3, 4}; // GPIOs for buttons
+// Pico pinout:
+// https://datacapturecontrol.com/articles/static/images/io-devices/microcontrollers/rpi-pico/rpi-pico-pinout.svg
+
+const uint BUTTON_PINS[] = {2, 3, 4, 5, 6, 7}; // GPIOs for buttons
 const uint NUM_BUTTONS = sizeof(BUTTON_PINS) / sizeof(BUTTON_PINS[0]);
 
 static bool button_prev_state[3] = {false};
@@ -30,13 +34,23 @@ int main() {
                     // Send key press
                     switch (i) {
                         case 0:
-                            hid_keyboard_send_key(HID_KEY_A);
+                            hid_keyboard_send_key(KEY_SPACE);
                             break;
                         case 1:
-                            hid_keyboard_send_key(HID_KEY_SPACE);
+                            hid_keyboard_send_key(KEY_BACKSPACE);
                             break;
                         case 2:
-                            hid_keyboard_send_combo(HID_MOD_ALT, HID_KEY_X);
+                            // hid_keyboard_send_combo(HID_MOD_ALT, HID_KEY_X);
+                            hid_keyboard_send_key(KEY_EQUAL);
+                            break;
+                        case 3:
+                            hid_keyboard_send_key(KEY_MINUS);
+                            break;
+                        case 4:
+                            hid_keyboard_send_combo(KEY_MOD_LCTRL, KEY_S);
+                            break;
+                        case 5:
+                            hid_keyboard_send_key(KEY_ESC);
                             break;
                     }
                     button_last_change[i] = now;
