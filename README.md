@@ -29,7 +29,10 @@ To update all SDK components to the latest commit, run:
 
 ```shell
 $ git submodule update --remote --merge
-$ git add .
+[...]
+$ git add pico-*
+[...]
 $ git commit -m "Update RP2040 SDK"
+[...]
 $ git push
 ```
