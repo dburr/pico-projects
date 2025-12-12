@@ -24,6 +24,15 @@ int main() {
         
         uint32_t now = to_ms_since_boot(get_absolute_time());
         
+        /*
+         * start: ctrl+s
+         * stop: esc
+         * next: space
+         * prev: del
+         * zoom in: =
+         * zoom out: -
+         * start/stop auto next: alt+s
+         */
         for (uint i = 0; i < NUM_BUTTONS; ++i) {
             bool pressed = gpio_button_pressed(i);
             

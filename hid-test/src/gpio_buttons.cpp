@@ -4,6 +4,12 @@
 static const uint* button_pins;
 static uint button_count;
 
+/**
+ * @brief Initialize GPIO buttons
+ * 
+ * @param pins Array of GPIO pins
+ * @param num Number of buttons
+ */
 void gpio_buttons_init(const uint* pins, uint num) {
     button_pins = pins;
     button_count = num;
@@ -14,6 +20,13 @@ void gpio_buttons_init(const uint* pins, uint num) {
     }
 }
 
+/**
+ * @brief Check if a GPIO button is pressed
+ * 
+ * @param idx Index of the button
+ * @return true If the button is pressed
+ * @return false If the button is not pressed
+ */
 bool gpio_button_pressed(uint idx) {
     if (idx >= button_count) return false;
     return gpio_get(button_pins[idx]) == 0;
