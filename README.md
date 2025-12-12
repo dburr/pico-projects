@@ -14,7 +14,7 @@ Install the following packages through Homebrew:
   * ~~`brew install arm-none-eabi-gcc`~~
   * `brew install --cask gcc-arm-embedded`
 
-### On Linux (Ubuntu)
+### On Linux (Debian/Ubuntu)
 
 `$ sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential`
 
@@ -25,4 +25,11 @@ The SDK is set up as submodules to this project. To get everything set up, simpl
 
 ## Updating the SDK
 
-To update all SDK components to the latest commit, run `git submodule update --remote --merge`.
+To update all SDK components to the latest commit, run:
+
+```shell
+$ git submodule update --remote --merge
+$ git add .
+$ git commit -m "Update RP2040 SDK"
+$ git push
+```
