@@ -1,6 +1,7 @@
 {
     "configurations": [
         {
+          "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
                 "/home/dburr/Developer/pico/pico-sdk/**"
