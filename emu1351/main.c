@@ -7,17 +7,17 @@
  * Pin Configuration:
  * - GPIO 0 (UART0 TX) - Debug UART output (connect to FTDI RX)
  * - GPIO 1 (UART0 RX) - Debug UART input (connect to FTDI TX)
- * - GPIO 2 (JOY_UP) - Joystick Up (also used for RMB)
- * - GPIO 3 (JOY_DOWN) - Joystick Down
- * - GPIO 4 (JOY_LEFT) - Joystick Left
- * - GPIO 5 (JOY_RIGHT) - Joystick Right
- * - GPIO 6 (JOY_BUTTON) - Joystick Button (used for LMB)
- * - GPIO 7 (POT_X) - Potentiometer X-axis
- * - GPIO 8 (POT_Y) - Potentiometer Y-axis
- * - GPIO 16 - LED for mouse detected/connected
- * - GPIO 17 - LED for error/no mouse detected
- * - GPIO 18 - Mode select: Proportional mode (input with pull-up)
- * - GPIO 19 - Mode select: Joystick mode (input with pull-up)
+ * - GPIO 16 (JOY_UP) - Joystick Up (also used for RMB)
+ * - GPIO 17 (JOY_DOWN) - Joystick Down
+ * - GPIO 13 (JOY_LEFT) - Joystick Left
+ * - GPIO 14 (JOY_RIGHT) - Joystick Right
+ * - GPIO 18 (JOY_BUTTON) - Joystick Button (used for LMB)
+ * - GPIO 19 (POT_X) - Potentiometer X-axis
+ * - GPIO 15 (POT_Y) - Potentiometer Y-axis
+ * - GPIO 4 - LED for mouse detected/connected
+ * - GPIO 5 - LED for error/no mouse detected
+ * - GPIO 2 - Mode select: Proportional mode (input with pull-up)
+ * - GPIO 3 - Mode select: Joystick mode (input with pull-up)
  */
 
 #include <stdio.h>
@@ -32,19 +32,20 @@
 #define UART_RX_PIN 1
 #define UART_BAUD_RATE 115200
 
-#define LED_MOUSE_OK 16
-#define LED_ERROR 17
+#define LED_MOUSE_OK 4
+#define LED_ERROR 5
 
-#define MODE_PROPORTIONAL 18
-#define MODE_JOYSTICK 19
+#define MODE_PROPORTIONAL 2
+#define MODE_JOYSTICK 3
 
-#define JOY_UP 2
-#define JOY_DOWN 3
-#define JOY_LEFT 4
-#define JOY_RIGHT 5
-#define JOY_BUTTON 6
-#define POT_X 7
-#define POT_Y 8
+#define JOY_UP 16
+#define JOY_DOWN 17
+#define JOY_LEFT 13
+#define JOY_RIGHT 14
+#define JOY_BUTTON 18
+
+#define POT_X 19
+#define POT_Y 15
 
 // Mouse state tracking
 static bool mouse_mounted = false;
