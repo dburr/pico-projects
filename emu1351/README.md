@@ -20,8 +20,17 @@ This initial version configures the Pico as a USB OTG host and reads data from a
 |----------|----------|-------------|
 | GPIO 0 | UART TX | Debug output to FTDI adapter |
 | GPIO 1 | UART RX | Debug input from FTDI adapter |
+| GPIO 2 | JOY_UP | Joystick Up input (also used for RMB) |
+| GPIO 3 | JOY_DOWN | Joystick Down input |
+| GPIO 4 | JOY_LEFT | Joystick Left input |
+| GPIO 5 | JOY_RIGHT | Joystick Right input |
+| GPIO 6 | JOY_BUTTON | Joystick Button input (used for LMB) |
+| GPIO 7 | POT_X | Potentiometer X-axis |
+| GPIO 8 | POT_Y | Potentiometer Y-axis |
 | GPIO 16 | LED | Mouse detected/connected indicator (ON = mouse OK) |
 | GPIO 17 | LED | Error/no mouse indicator (ON = error/no mouse) |
+| GPIO 18 | MODE_PROPORTIONAL | Mode select: Proportional mode (input with pull-up) |
+| GPIO 19 | MODE_JOYSTICK | Mode select: Joystick mode (input with pull-up) |
 
 ## UART Settings
 
