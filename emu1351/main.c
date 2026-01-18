@@ -7,8 +7,17 @@
  * Pin Configuration:
  * - GPIO 0 (UART0 TX) - Debug UART output (connect to FTDI RX)
  * - GPIO 1 (UART0 RX) - Debug UART input (connect to FTDI TX)
+ * - GPIO 2 (JOY_UP) - Joystick Up (also used for RMB)
+ * - GPIO 3 (JOY_DOWN) - Joystick Down
+ * - GPIO 4 (JOY_LEFT) - Joystick Left
+ * - GPIO 5 (JOY_RIGHT) - Joystick Right
+ * - GPIO 6 (JOY_BUTTON) - Joystick Button (used for LMB)
+ * - GPIO 7 (POT_X) - Potentiometer X-axis
+ * - GPIO 8 (POT_Y) - Potentiometer Y-axis
  * - GPIO 16 - LED for mouse detected/connected
  * - GPIO 17 - LED for error/no mouse detected
+ * - GPIO 18 - Mode select: Proportional mode (input with pull-up)
+ * - GPIO 19 - Mode select: Joystick mode (input with pull-up)
  */
 
 #include <stdio.h>
@@ -25,6 +34,17 @@
 
 #define LED_MOUSE_OK 16
 #define LED_ERROR 17
+
+#define MODE_PROPORTIONAL 18
+#define MODE_JOYSTICK 19
+
+#define JOY_UP 2
+#define JOY_DOWN 3
+#define JOY_LEFT 4
+#define JOY_RIGHT 5
+#define JOY_BUTTON 6
+#define POT_X 7
+#define POT_Y 8
 
 // Mouse state tracking
 static bool mouse_mounted = false;
@@ -55,7 +75,44 @@ void init_hardware(void) {
     gpio_set_dir(LED_ERROR, GPIO_OUT);
     gpio_put(LED_ERROR, 1);  // Error LED on by default (no mouse)
     
-    printf("\n\n=== Commodore 1351 Mouse Emulator ===\n");
+    // Initialize mode selection pins as inputs with pull-ups
+    gpio_init(MODE_PROPORTIONAL);
+    gpio_set_dir(MODE_PROPORTIONAL, GPIO_IN);
+    gpio_pull_up(MODE_PROPORTIONAL);
+    
+    gpio_init(MODE_JOYSTICK);
+    gpio_set_dir(MODE_JOYSTICK, GPIO_IN);
+    gpio_pull_up(MODE_JOYSTICK);
+        // Initialize joystick pins as inputs with pull-ups
+    gpio_init(JOY_UP);
+    gpio_set_dir(JOY_UP, GPIO_IN);
+    gpio_pull_up(JOY_UP);
+    
+    gpio_init(JOY_DOWN);
+    gpio_set_dir(JOY_DOWN, GPIO_IN);
+    gpio_pull_up(JOY_DOWN);
+    
+    gpio_init(JOY_LEFT);
+    gpio_set_dir(JOY_LEFT, GPIO_IN);
+    gpio_pull_up(JOY_LEFT);
+    
+    gpio_init(JOY_RIGHT);
+    gpio_set_dir(JOY_RIGHT, GPIO_IN);
+    gpio_pull_up(JOY_RIGHT);
+    
+    gpio_init(JOY_BUTTON);
+    gpio_set_dir(JOY_BUTTON, GPIO_IN);
+    gpio_pull_up(JOY_BUTTON);
+    
+    // Initialize potentiometer pins as inputs with pull-ups
+    gpio_init(POT_X);
+    gpio_set_dir(POT_X, GPIO_IN);
+    gpio_pull_up(POT_X);
+    
+    gpio_init(POT_Y);
+    gpio_set_dir(POT_Y, GPIO_IN);
+    gpio_pull_up(POT_Y);
+        printf("\n\n=== Commodore 1351 Mouse Emulator ===\n");
     printf("USB Mouse Host Mode - Stub Implementation\n");
     printf("UART Debug Output at %d baud\n", UART_BAUD_RATE);
     printf("Waiting for USB mouse...\n\n");
