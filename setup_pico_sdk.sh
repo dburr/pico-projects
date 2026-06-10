@@ -10,7 +10,7 @@
 #                stable. Defaults to "master".
 #
 # The script:
-#   1. Installs required build dependencies via apt (idempotent).
+#   1. Installs required build dependencies via pacman (idempotent).
 #   2. Clones (or updates) the pico-sdk into PICO_INSTALL_DIR.
 #   3. Initialises all submodules.
 #   4. Writes a pico_sdk_env.sh file that Jenkins can source to expose
@@ -70,51 +70,39 @@ ENV_FILE="${ENV_FILE:-pico_sdk_env.sh}"
 
 log() { echo "[pico-sdk-setup] $*"; }
 
-require_cmd() {
-    command -v "$1" >/dev/null 2>&1 || { log "ERROR: '$1' not found. Install it and retry."; exit 1; }
-}
+# ---------------------------------------------------------------------------
+# 1. Dependency check / install (Arch Linux — pacman)
+# ---------------------------------------------------------------------------
 
-# ---------------------------------------------------------------------------
-# 1. Dependency check / install
-# ---------------------------------------------------------------------------
+# Arch package names for the Pico toolchain:
+#   arm-none-eabi-gcc      — ARM cross-compiler (community repo)
+#   arm-none-eabi-newlib   — C runtime / newlib for bare-metal ARM
+#   cmake, git, python, make — standard build tools
+#
+# All packages are installed with --needed so pacman is a no-op when they
+# are already present, keeping the step idempotent.
+
+PACMAN_PACKAGES=(
+    git
+    cmake
+    python
+    make
+    arm-none-eabi-gcc
+    arm-none-eabi-newlib
+)
 
 log "Checking build dependencies..."
 
-DEPS=(git cmake python3 make gcc)
-MISSING=()
-for cmd in "${DEPS[@]}"; do
-    command -v "$cmd" >/dev/null 2>&1 || MISSING+=("$cmd")
+MISSING_PKGS=()
+for pkg in "${PACMAN_PACKAGES[@]}"; do
+    pacman -Qi "${pkg}" &>/dev/null || MISSING_PKGS+=("${pkg}")
 done
 
-if [[ ${#MISSING[@]} -gt 0 ]]; then
-    log "Installing missing packages: ${MISSING[*]}"
-    if command -v apt-get >/dev/null 2>&1; then
-        sudo apt-get update -qq
-        sudo apt-get install -y --no-install-recommends \
-            git \
-            cmake \
-            python3 \
-            python3-pip \
-            build-essential \
-            gcc-arm-none-eabi \
-            libnewlib-arm-none-eabi \
-            libstdc++-arm-none-eabi-newlib
-    else
-        log "ERROR: apt-get not available and missing commands: ${MISSING[*]}"
-        log "Please install the Pico SDK toolchain manually for your OS."
-        exit 1
-    fi
+if [[ ${#MISSING_PKGS[@]} -gt 0 ]]; then
+    log "Installing missing packages via pacman: ${MISSING_PKGS[*]}"
+    sudo pacman -Sy --noconfirm --needed "${MISSING_PKGS[@]}"
 else
-    log "All base dependencies present."
-fi
-
-# Ensure the ARM cross-compiler is available (may not be caught above).
-if ! command -v arm-none-eabi-gcc >/dev/null 2>&1; then
-    log "Installing ARM GCC cross-compiler..."
-    sudo apt-get install -y --no-install-recommends \
-        gcc-arm-none-eabi \
-        libnewlib-arm-none-eabi \
-        libstdc++-arm-none-eabi-newlib
+    log "All dependencies already installed."
 fi
 
 # ---------------------------------------------------------------------------
