@@ -2,7 +2,7 @@
 
 set -ex
 source pico_sdk_env.sh
-for PROJECT in adxl343_i2c adxl343_spi blink blink_w hid-test; do
+for PROJECT in adxl343_i2c adxl343_spi blink hid-test; do
   echo "Building $PROJECT"
   pushd $PROJECT >/dev/null
   mkdir -p build && pushd build >/dev/null
